@@ -10,21 +10,26 @@ def is_perfect_square(n):
     return int(math.isqrt(n)) ** 2 == n
 
 A = [random.randint(1, 1000) for _ in range(N)]
-A[N] = 4
-results = [[] for _ in range(K)]  # Lưu kết quả từ mỗi luồng
+A[-1] = 16 
+print(f"Dãy số A: {A}")
+results = [[] for _ in range(K)]
 
 def print_perfect_squares(id, start, end):
     perfect_squares_in_segment = [A[i] for i in range(start, end) if is_perfect_square(A[i])]
-    results[id] = perfect_squares_in_segment  # Ghi kết quả vào danh sách chung
-
     now = datetime.now()
     time_str = now.strftime("%H:%M:%S.%f")[:-3]
-    
     if perfect_squares_in_segment:
         for num in perfect_squares_in_segment:
-            print(f"T{id+1} ({start}-{end}): {num} - {time_str} \n")
-    else:
-        print(f"T{id+1} ({start}-{end}): Không có số chính phương - {time_str} \n")
+            print(f"T{id} ({start}-{end}): {num} - {time_str} \n")
+    results[id] = perfect_squares_in_segment
+
+    
+    
+    # if perfect_squares_in_segment:
+    #     for num in perfect_squares_in_segment:
+    #         print(f"T{id} ({start}-{end}): {num} - {time_str} \n")
+    # else:
+    #     print(f"T{id} ({start}-{end}): Không có số chính phương - {time_str} \n")
 
 threads = []
 
